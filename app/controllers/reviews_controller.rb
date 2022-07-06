@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+  before_action :set_review, only: [:edit, :update, :destroy]
+
   def create
     @review = Review.new(review_params)
     @list = List.find(params[:list_id])
@@ -11,21 +13,23 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-    @review = Review.find(params[:id])
   end
 
   def update
-    @review = Review.find(params[:id])
-    @review.update(params[:review])
+    @review.update(review_params)
+    redirect_to list_path(@review)
   end
 
   def destroy
-    @review = Review.find(params[:id])
     @review.destroy
     redirect_to list_path(@review.list)
   end
 
   private
+
+  def set_review
+    @review = Review.find(params[:id])
+  end
 
   def review_params
     params.require(:review).permit(:comment, :rating)
