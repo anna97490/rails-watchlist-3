@@ -48,6 +48,8 @@
           <% end %>
           <small><em class="text-muted"><%= distance_of_time_in_words_to_now(review.created_at) %> ago</em></small>
           <p class="mb-0"><%= review.comment %></p>
+          <%= link_to "Update your comment", edit_review_path, class: "btn btn-cancel", data: { confirm: "Are you sure you want to update your comment?" } %>
+
         </div>
         <hr>
       <% end %>
